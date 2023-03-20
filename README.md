@@ -19,5 +19,6 @@ Then, to start the app:
 > lando start
 ```
 
-Go to https://wonde.lndo.site/ in your browser and you should see the initial
-Laravel welcome screen.
+Go to https://wonde.lndo.site/ in your browser and you should see the
+application home screen. You can use the following employee ID for demonstration
+purposes: A500460806

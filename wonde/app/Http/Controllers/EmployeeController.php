@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Wonde\Client;
 
 class EmployeeController extends Controller
 {
-    public function index(string $id)
+    public function index(Request $request)
     {
         $client = new Client(env('WONDE_AUTH_KEY'));
         $school = $client->school(env('WONDE_SCHOOL_ID'));
+        $id = $request->id;
 
         try {
             $employee = $school->employees->get($id, ['classes']);
