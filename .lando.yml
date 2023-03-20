@@ -1,0 +1,6 @@
+name: wonde
+recipe: laravel
+config:
+  webroot: wonde/public
+  php: '8.2'
+  via: nginx
