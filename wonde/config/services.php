@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'client' => [
+        'auth_key' => env('WONDE_AUTH_KEY'),
+        'school_id' => env('WONDE_SCHOOL_ID'),
+    ],
+
 ];
