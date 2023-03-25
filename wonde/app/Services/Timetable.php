@@ -3,8 +3,14 @@
 namespace App\Services;
 
 use Wonde\Client;
+use Illuminate\Support\Facades\Cache;
 
 class Timetable {
+
+    /**
+     * Seconds to cache responses from the API.
+     */
+    const CACHE_LIFETIME = 3600;
 
     protected $school;
 
@@ -24,13 +30,16 @@ class Timetable {
      */
     public function getEmployee($id)
     {
-        try {
-            $employee = $this->school->employees->get($id, ['classes']);
-        } catch (\Exception $e) {
-            echo "Did you use a valid employee id?\n";
-            echo $e->getMessage();
-            exit();
-        }
+        $employee = Cache::remember($id . '-employee', static::CACHE_LIFETIME, function() use ($id) {
+            try {
+                $employee = $this->school->employees->get($id, ['classes']);
+            } catch (\Exception $e) {
+                echo "Did you use a valid employee id?\n";
+                echo $e->getMessage();
+                exit();
+            }
+            return $employee;
+        });
 
         return $employee;
     }
@@ -58,9 +67,12 @@ class Timetable {
      */
     public function getClasses($employee)
     {
-        foreach ($employee->classes->data as $class) {
-            $classesWithLessons[] = $this->school->classes->get($class->id, ['lessons', 'students']);
-        }
+        $classesWithLessons = Cache::remember($employee->id . '-classes', static::CACHE_LIFETIME, function () use ($employee) {
+            foreach ($employee->classes->data as $class) {
+                $classesWithLessons[] = $this->school->classes->get($class->id, ['lessons', 'students']);
+            }
+            return $classesWithLessons;
+        });
 
         return $classesWithLessons;
     }
