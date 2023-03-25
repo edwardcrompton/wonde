@@ -16,7 +16,7 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-        $employeeId = $request->id;
+        $employeeId = $request->employeeid;
 
         return view('timetable', [
             'name' => $this->timetable->getEmployeeName($employeeId),
