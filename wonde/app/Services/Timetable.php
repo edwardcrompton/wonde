@@ -5,6 +5,9 @@ namespace App\Services;
 use Wonde\Client;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Service function to fetch data for timetable display.
+ */
 class Timetable {
 
     /**
@@ -12,6 +15,11 @@ class Timetable {
      */
     const CACHE_LIFETIME = 3600;
 
+    /**
+     * The school as provided by the API.
+     *
+     * @var object
+     */
     protected $school;
 
     public function __construct(Client $client)

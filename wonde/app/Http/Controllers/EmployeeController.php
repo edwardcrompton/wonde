@@ -7,6 +7,9 @@ use App\Services\Timetable;
 
 class EmployeeController extends Controller
 {
+    /**
+     * The injected timetable service.
+     */
     protected $timetable;
 
     public function __construct(Timetable $timetable)
@@ -14,6 +17,11 @@ class EmployeeController extends Controller
         $this->timetable = $timetable;
     }
 
+    /**
+     * Show a timetable associated with an employee.
+     *
+     * @param Request $request
+     */
     public function index(Request $request)
     {
         $employeeId = $request->employeeid;
