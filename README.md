@@ -8,10 +8,25 @@ of the week so that I can be suitably prepared__.
 
 ## Set up
 
-The local development environment I use is Lando. To run the app using Lando,
-you'll need to have some prerequists installed. Please follow
-https://docs.lando.dev/getting-started/installation.html to install Lando and
-dependencies.
+The local development environment I use is Lando. However, to run the app
+without the overhead of installing Lando I've also included a Dockerfile.
+
+### Quick run with Docker
+
+You'll need Docker installed to run with this method.
+
+From the root of the codebase (this folder), run:
+
+`docker run --rm -it -p 8000:8000 $(docker build -q .)`
+
+Go to `http://0.0.0.0:8000/` in your browser and you should see the application
+home screen.
+
+### Full development environment with Lando
+
+To run the app using Lando, you'll need to have some prerequists installed.
+Please follow https://docs.lando.dev/getting-started/installation.html to
+install Lando and dependencies.
 
 Then, to start the app:
 
@@ -20,5 +35,4 @@ Then, to start the app:
 ```
 
 Go to https://wonde.lndo.site/ in your browser and you should see the
-application home screen. You can use the following employee ID for demonstration
-purposes: A500460806
+application home screen.
