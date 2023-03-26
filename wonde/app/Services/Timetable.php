@@ -77,28 +77,42 @@ class Timetable {
         return $classesWithLessons;
     }
 
-
     /**
-     * Sort a list of classes by their start time.
+     * Build a timetable, ordered by lesson date and time.
      *
      * @param array $classes
      * @return array
      *   An array of lessons keyed and ordered by lesson time.
      */
-    public function sortByLesson($classes)
-    {
+    public function buildTimeTable($classes) {
         foreach ($classes as $class) {
             foreach ($class->lessons->data as $lesson) {
-                $timetable[strtotime($lesson->start_at->date)] = [
-                    'start_at' => $lesson->start_at,
-                    'students' => $class->students->data,
+                $startTime = strtotime($lesson->start_at->date);
+                $timetable[$startTime] = [
+                    'start_at' => date('jS M Y \a\t G:i', $startTime),
+                    'students' => $this->sortStudents($class->students->data),
                 ];
             }
         }
 
         ksort($timetable);
-
         return $timetable;
+    }
+
+    /**
+     * Sort an array of students by surname.
+     *
+     * @param array $students
+     * @return array
+     */
+    public function sortStudents($students) {
+        $studentList = [];
+        foreach ($students as $student) {
+            $studentList[$student->surname] = $student;
+        }
+
+        ksort($studentList);
+        return $studentList;
     }
 
     /**
@@ -112,7 +126,7 @@ class Timetable {
     {
         $employee = $this->getEmployee($id);
         $classes = $this->getClasses($employee);
-        $timetable = $this->sortByLesson($classes);
+        $timetable = $this->buildTimeTable($classes);
 
         return $timetable;
     }
