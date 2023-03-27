@@ -36,3 +36,10 @@ Then, to start the app:
 
 Go to https://wonde.lndo.site/ in your browser and you should see the
 application home screen.
+
+## Running tests
+
+The application contains a unit test and a feature test. These can be run with
+the following command:
+
+`docker run --rm -it -p 8000:8000 $(docker build -q .) php artisan test`
