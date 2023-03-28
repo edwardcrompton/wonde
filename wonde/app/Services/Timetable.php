@@ -76,6 +76,7 @@ class Timetable {
     public function getClasses($employee)
     {
         $classesWithLessons = Cache::remember($employee->id . '-classes', static::CACHE_LIFETIME, function () use ($employee) {
+            $classesWithLessons = [];
             foreach ($employee->classes->data as $class) {
                 $classesWithLessons[] = $this->school->classes->get($class->id, ['lessons', 'students']);
             }
@@ -93,6 +94,8 @@ class Timetable {
      *   An array of lessons keyed and ordered by lesson time.
      */
     public function buildTimeTable($classes) {
+        $timetable = [];
+
         foreach ($classes as $class) {
             foreach ($class->lessons->data as $lesson) {
                 $startTime = strtotime($lesson->start_at->date);

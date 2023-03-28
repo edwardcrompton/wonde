@@ -37,6 +37,12 @@ Then, to start the app:
 Go to https://wonde.lndo.site/ in your browser and you should see the
 application home screen.
 
+## Example data
+
+Here are two examples of Employee IDs which can be used for demo purposes:
+- A500460806 an employee who has classes (w/c 27th March 2023)
+- A199135293 an employee who does not have classes (w/c 27th March 2023).
+
 ## Running tests
 
 The application contains a unit test and a feature test. These can be run with
