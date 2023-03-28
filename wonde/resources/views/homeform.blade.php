@@ -5,6 +5,10 @@
 @section('content')
 
 <div class="mt-8">
+  @if (session('error'))
+    <div class="text-white bg-red-500 p-4 w-full max-w-sm m-auto mb-4">{{ session('error') }}</div>
+  @endif
+
   <form method="POST" action="{{url('employee')}}" class="w-full max-w-sm m-auto">
     @csrf
     <div class="md:flex md:items-center mb-6">

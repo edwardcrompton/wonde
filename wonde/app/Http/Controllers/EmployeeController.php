@@ -26,9 +26,13 @@ class EmployeeController extends Controller
     {
         $employeeId = $request->employeeid;
 
-        return view('timetable', [
-            'name' => $this->timetable->getEmployeeName($employeeId),
-            'lessons' => $this->timetable->getTimeTable($employeeId),
-        ]);
+        try {
+            return view('timetable', [
+                'name' => $this->timetable->getEmployeeName($employeeId),
+                'lessons' => $this->timetable->getTimeTable($employeeId),
+            ]);
+        } catch (\Exception $e) {
+            return back()->withError('Employee ID ' . $request->input('employeeid') . ' not found.')->withInput();
+        }
     }
 }

@@ -39,13 +39,7 @@ class Timetable {
     public function getEmployee($id)
     {
         $employee = Cache::remember($id . '-employee', static::CACHE_LIFETIME, function() use ($id) {
-            try {
-                $employee = $this->school->employees->get($id, ['classes']);
-            } catch (\Exception $e) {
-                echo "Did you use a valid employee id?\n";
-                echo $e->getMessage();
-                exit();
-            }
+            $employee = $this->school->employees->get($id, ['classes']);
             return $employee;
         });
 
